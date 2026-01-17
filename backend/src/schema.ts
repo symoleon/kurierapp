@@ -8,13 +8,7 @@ export const addressSchema = z.object({
     apartment_no: z.string().optional(),
 });
 
-export const partialAddressSchema = z.object({
-    city: z.string().optional(),
-    street: z.string().optional(),
-    building_no: z.string().optional(),
-    postal_code: z.string().optional(),
-    apartment_no: z.string().optional(),
-});
+export const partialAddressSchema = addressSchema.partial();
 
 export const shipmentSchema = z.object({
     id: z.uuid().optional(),
@@ -34,8 +28,4 @@ export const userWithIdSchema = userSchema.extend({
     id: z.uuid(),
 })
 
-export const partialUserSchema = z.object({
-    email: z.email().optional(),
-    phone: z.string().optional(),
-    address: partialAddressSchema.optional(),
-});
+export const partialUserSchema = userSchema.partial();
