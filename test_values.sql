@@ -23,3 +23,16 @@ VALUES (
            'Wojska Polskiego',
            '17'
        );
+
+INSERT INTO
+    shipments(sender_id, recipient_phone, recipient_id, size, city, postal_code, street, building_no)
+VALUES (
+           '7f974669-80be-4b0f-b6a1-15793702b4ea',
+           '123456789',
+           '7f974669-80be-4b0f-b6a1-15793702b4ea',
+           'M',
+           'Warszawa',
+           '12-345',
+           'Aleje Jerozolimskie',
+           '5A'
+       );
