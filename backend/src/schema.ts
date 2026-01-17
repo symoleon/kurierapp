@@ -19,15 +19,23 @@ export const shipmentSchema = z.object({
     size: z.enum(["S", "M", "L", "XL"]),
 });
 
+export const createShipmentSchema = shipmentSchema.omit({
+    id: true,
+    senderId: true,
+    recipientId: true,
+});
+
 export const userSchema = z.object({
-    id: z.uuid().optional(),
+    id: z.uuid(),
     email: z.email(),
     phone: z.string(),
-    address: addressSchema
-})
-
-export const userWithIdSchema = userSchema.extend({
-    id: z.uuid(),
-})
+    address: addressSchema,
+});
 
 export const partialUserSchema = userSchema.partial();
+
+export const createUserSchema = userSchema.omit({
+    id: true,
+}).extend({
+    password: z.string(),
+})

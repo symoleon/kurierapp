@@ -1,7 +1,7 @@
 import { sql } from "bun";
-import type { DbPartialUser, PartialUser, User, UserWithId } from "../types.ts";
+import type { CreateUser, DbPartialUser, PartialUser, User } from "../types.ts";
 
-function userToDbObject(user: PartialUser | User | UserWithId): DbPartialUser {
+function userToDbObject(user: PartialUser | User | CreateUser): DbPartialUser {
     return {
         id: "id" in user ? user.id : undefined,
         email: user.email,
@@ -14,7 +14,7 @@ function userToDbObject(user: PartialUser | User | UserWithId): DbPartialUser {
     };
 }
 
-export async function getUserById(id: string): Promise<UserWithId | null> {
+export async function getUserById(id: string): Promise<User | null> {
     const [ user ] = await sql`SELECT *
                              FROM users
                              WHERE id = ${id}`;
@@ -33,8 +33,8 @@ export async function getUserById(id: string): Promise<UserWithId | null> {
     };
 }
 
-export async function getUserByPhone(phon: string): Promise<UserWithId | null> {
-    const [ user ] = await sql`SELECT * FROM users WHERE phone = ${phon}`;
+export async function getUserByPhone(phone: string): Promise<User | null> {
+    const [ user ] = await sql`SELECT * FROM users WHERE phone = ${phone}`;
     if (!user) return null;
     return {
         id: user.id,
@@ -50,8 +50,8 @@ export async function getUserByPhone(phon: string): Promise<UserWithId | null> {
     };
 }
 
-export async function addUser(user: User, password: string): Promise<UserWithId> {
-    const hash = await Bun.password.hash(password);
+export async function addUser(user: CreateUser): Promise<User> {
+    const hash = await Bun.password.hash(user.password);
     const [ newUser ] = await sql`INSERT INTO users(email, password, phone, city, postal_code, street, building_no,
                                               apartment_no)
                             VALUES (${user.email},

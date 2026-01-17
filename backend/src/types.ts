@@ -5,15 +5,15 @@ import {
     partialAddressSchema,
     shipmentSchema,
     userSchema,
-    userWithIdSchema,
-    partialUserSchema,
+    partialUserSchema, createUserSchema, createShipmentSchema,
 } from "./schema.ts";
 
 export type Address = z.infer<typeof addressSchema>;
 export type PartialAddress = z.infer<typeof partialAddressSchema>;
 export type Shipment = z.infer<typeof shipmentSchema>;
+export type CreateShipment = z.infer<typeof createShipmentSchema>;
 export type User = z.infer<typeof userSchema>;
-export type UserWithId = z.infer<typeof userWithIdSchema>;
+export type CreateUser = z.infer<typeof createUserSchema>;
 export type PartialUser = z.infer<typeof partialUserSchema>;
 
 export type DbUser = {
