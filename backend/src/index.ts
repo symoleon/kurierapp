@@ -1,6 +1,6 @@
 import express from 'express';
 import z from 'zod';
-import { createShipmentSchema } from "./schema";
+import { shipmentSchema } from "./schema";
 
 const formatErrors = (error: z.ZodError): string[] => {
     return error.issues.map((issue) => {
@@ -18,7 +18,7 @@ app.get('/', (req, res) => {
 });
 
 app.post('/api/shipments', (req, res) => {
-   const result = createShipmentSchema.safeParse(req.body);
+   const result = shipmentSchema.safeParse(req.body);
    if (!result.success) {
        res.status(400).json(formatErrors(result.error));
        return;

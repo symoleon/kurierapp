@@ -1,5 +1,5 @@
 import { describe, test, expect } from "bun:test";
-import {createShipmentSchema} from "../src/schema.ts";
+import {shipmentSchema} from "../src/schema.ts";
 
 describe("/api/shipment", () => {
    test("Poprawność schematu", () => {
@@ -13,7 +13,7 @@ describe("/api/shipment", () => {
           "recipientPhone": "500-100-200",
           "size": "M"
       };
-      const result = createShipmentSchema.safeParse(data);
+      const result = shipmentSchema.safeParse(data);
       expect(result.success).toEqual(true);
    });
     test("Walidacja błędnych danych", () => {
@@ -26,7 +26,7 @@ describe("/api/shipment", () => {
             "recipientPhone": "500-100-200",
             "size": "big"
         };
-        const result = createShipmentSchema.safeParse(data);
+        const result = shipmentSchema.safeParse(data);
         expect(result.success).toEqual(false);
     });
 });

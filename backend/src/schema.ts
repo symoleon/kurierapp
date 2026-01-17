@@ -8,7 +8,7 @@ export const addressSchema = z.object({
     apartment_no: z.string().optional(),
 });
 
-export const createShipmentSchema = z.object({
+export const shipmentSchema = z.object({
     recipientAddress: addressSchema,
     recipientPhone: z.string(),
     size: z.enum(["S", "M", "L", "XL"]),

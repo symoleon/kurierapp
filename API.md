@@ -8,10 +8,10 @@
 | PATCH       | /api/user/@current           | Częściowa edycja profilu    |      Tak      |        { email?, phone? }         |
 | GET         | /api/user/@current/shipments | Lista paczek użytkownika    |      Tak      |                 -                 |
 | GET         | /api/shipments/:id           | Szczegóły konkretnej paczki |      Tak      |         Parametr URL :id          |
-| POST        | /api/shipments               | Nadanie nowej paczki        |      Tak      | [CreateShipment](#CreateShipment) |
+| POST        | /api/shipments               | Nadanie nowej paczki        |      Tak      |    [CreateShipment](#Shipment)    |
 
 ## Typy danych
-### CreateShipment
+### Shipment
 
 | Pole             | Typ                       |
 |------------------|---------------------------|
