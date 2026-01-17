@@ -1,5 +1,18 @@
 import { sql } from "bun";
-import type { User, UserWithId } from "../types.ts";
+import type { DbUser, PartialUser, User, UserWithId } from "../types.ts";
+
+function userToDbObject(user: PartialUser | User | UserWithId): DbUser {
+    return {
+        id: "id" in user ? user.id : undefined,
+        email: user.email,
+        phone: user.phone,
+        city: user.address?.city,
+        postalCode: user.address?.postal_code,
+        street: user.address?.street,
+        building_no: user.address?.building_no,
+        apartment_no: user.address?.apartment_no,
+    };
+}
 
 export async function getUserById(id: string): Promise<UserWithId | null> {
     const [ user ] = await sql`SELECT *
