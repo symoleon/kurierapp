@@ -9,12 +9,14 @@ export const addressSchema = z.object({
 });
 
 export const shipmentSchema = z.object({
+    id: z.uuid().optional(),
     recipientAddress: addressSchema,
     recipientPhone: z.string(),
     size: z.enum(["S", "M", "L", "XL"]),
 });
 
 export const userSchema = z.object({
+    id: z.uuid().optional(),
     email: z.email(),
     phone: z.string(),
     address: addressSchema
