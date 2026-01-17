@@ -11,7 +11,8 @@ export const addressSchema = z.object({
 export const partialAddressSchema = addressSchema.partial();
 
 export const shipmentSchema = z.object({
-    id: z.uuid().optional(),
+    id: z.uuid(),
+    senderId: z.uuid(),
     recipientAddress: addressSchema,
     recipientPhone: z.string(),
     recipientId: z.uuid().optional(),

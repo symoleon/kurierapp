@@ -5,6 +5,7 @@ import { getUserByPhone } from "./users.ts";
 function mapToShipment(dbShipment: DbShipment): Shipment {
     return {
         id: dbShipment.id,
+        senderId: dbShipment.sender_id,
         size: dbShipment.size,
         recipientPhone: dbShipment.recipient_phone,
         recipientId: dbShipment.recipient_id,
