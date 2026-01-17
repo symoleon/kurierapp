@@ -1,6 +1,7 @@
 import express from 'express';
 import z from 'zod';
 import { shipmentSchema } from "./schema";
+import authRouter from "./api/auth.ts";
 
 const formatErrors = (error: z.ZodError): string[] => {
     return error.issues.map((issue) => {
@@ -16,6 +17,8 @@ app.use(express.json());
 app.get('/', (req, res) => {
     res.send('Hello World!');
 });
+
+app.use("/api", authRouter);
 
 app.post('/api/shipments', (req, res) => {
    const result = shipmentSchema.safeParse(req.body);
