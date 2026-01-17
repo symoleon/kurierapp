@@ -31,7 +31,7 @@ export const userSchema = z.object({
 })
 
 export const userWithIdSchema = userSchema.extend({
-    id: z.string(),
+    id: z.uuid(),
 })
 
 export const partialUserSchema = z.object({
