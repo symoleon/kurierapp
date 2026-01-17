@@ -14,6 +14,7 @@ export const shipmentSchema = z.object({
     id: z.uuid().optional(),
     recipientAddress: addressSchema,
     recipientPhone: z.string(),
+    recipientId: z.uuid().optional(),
     size: z.enum(["S", "M", "L", "XL"]),
 });
 
