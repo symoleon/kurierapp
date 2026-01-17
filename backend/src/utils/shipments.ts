@@ -1,5 +1,11 @@
 import { sql } from "bun";
-import type { Shipment, Address, Size, DbShipment } from "../types.ts";
+import type {
+    Shipment,
+    DbShipment,
+    CreateShipment,
+    PartialShipment,
+    DbPartialShipment,
+} from "../types.ts";
 import { getUserByPhone } from "./users.ts";
 
 function mapToShipment(dbShipment: DbShipment): Shipment {
@@ -16,6 +22,21 @@ function mapToShipment(dbShipment: DbShipment): Shipment {
             building_no: dbShipment.building_no,
             apartment_no: dbShipment.apartment_no,
         },
+    };
+}
+
+function shipmentToDbObject(shipment: Shipment | PartialShipment | CreateShipment): DbPartialShipment {
+    return {
+        id: "id" in shipment ? shipment.id : undefined,
+        sender_id: "senderId" in shipment ? shipment.senderId : undefined,
+        size: shipment.size,
+        recipient_id: "recipientId" in shipment ? shipment.recipientId : undefined,
+        recipient_phone: shipment.recipientPhone,
+        city: shipment.recipientAddress?.city,
+        postal_code: shipment.recipientAddress?.postal_code,
+        street: shipment.recipientAddress?.street,
+        building_no: shipment.recipientAddress?.building_no,
+        apartment_no: shipment.recipientAddress?.apartment_no,
     };
 }
 
@@ -41,11 +62,14 @@ export async function getShipment(id: string): Promise<Shipment | null> {
     return mapToShipment(result[0]);
 }
 
-export async function addShipment(userId: string, size: Size, recipientAddress: Address, recipientPhone: string) {
-    const recipient = await getUserByPhone(recipientPhone);
-    await sql`INSERT INTO shipments(sender_id, recipient_id, recipient_phone, size, city, postal_code,
-                                    street, building_no, apartment_no)
-              VALUES (${userId}, ${recipient?.id}, ${recipientPhone}, ${size}, ${recipientAddress.city},
-                      ${recipientAddress.postal_code}, ${recipientAddress.street},
-                      ${recipientAddress.building_no}, ${recipientAddress.apartment_no})`;
+export async function addShipment(userId: string, shipment: CreateShipment): Promise<Shipment> {
+    const recipient = await getUserByPhone(shipment.recipientPhone);
+    const newShipment = {
+        ...shipment,
+        recipientId: recipient?.id,
+        senderId: userId,
+    } satisfies PartialShipment;
+    const { id, ...dbShipment } = shipmentToDbObject(newShipment);
+    const [ addedShipment ] = await sql`INSERT INTO shipments ${sql(dbShipment)} RETURNING *`;
+    return mapToShipment(addedShipment);
 }
