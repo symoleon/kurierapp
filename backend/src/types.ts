@@ -4,13 +4,17 @@ import {
     addressSchema,
     partialAddressSchema,
     shipmentSchema,
+    partialShipmentSchema,
+    createShipmentSchema,
     userSchema,
-    partialUserSchema, createUserSchema, createShipmentSchema,
+    partialUserSchema,
+    createUserSchema,
 } from "./schema.ts";
 
 export type Address = z.infer<typeof addressSchema>;
 export type PartialAddress = z.infer<typeof partialAddressSchema>;
 export type Shipment = z.infer<typeof shipmentSchema>;
+export type PartialShipment = z.infer<typeof partialShipmentSchema>;
 export type CreateShipment = z.infer<typeof createShipmentSchema>;
 export type User = z.infer<typeof userSchema>;
 export type CreateUser = z.infer<typeof createUserSchema>;

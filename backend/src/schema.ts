@@ -19,6 +19,8 @@ export const shipmentSchema = z.object({
     size: z.enum(["S", "M", "L", "XL"]),
 });
 
+export const partialShipmentSchema = shipmentSchema.partial();
+
 export const createShipmentSchema = shipmentSchema.omit({
     id: true,
     senderId: true,
