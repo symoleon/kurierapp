@@ -2,15 +2,19 @@ import { z } from "zod";
 import type { Request } from "express";
 import {
     addressSchema,
+    partialAddressSchema,
     shipmentSchema,
     userSchema,
     userWithIdSchema,
+    partialUserSchema,
 } from "./schema.ts";
 
 export type Address = z.infer<typeof addressSchema>;
+export type PartialAddress = z.infer<typeof partialAddressSchema>;
 export type Shipment = z.infer<typeof shipmentSchema>;
 export type User = z.infer<typeof userSchema>;
 export type UserWithId = z.infer<typeof userWithIdSchema>;
+export type PartialUser = z.infer<typeof partialUserSchema>;
 
 export type Size = "S" | "M" | "L" | "XL";
 
