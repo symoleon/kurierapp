@@ -4,6 +4,7 @@ CREATE TABLE users(
     id uuid PRIMARY KEY DEFAULT gen_random_uuid(),
     email VARCHAR NOT NULL UNIQUE,
     password VARCHAR NOT NULL,
+    phone VARCHAR NOT NULL,
     city VARCHAR NOT NULL,
     postal_code VARCHAR NOT NULL,
     street VARCHAR,
