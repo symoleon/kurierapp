@@ -2,7 +2,7 @@ import express from 'express';
 import z from 'zod';
 import { shipmentSchema } from "./schema";
 import authRouter from "./api/auth.ts";
-import userRouter from "./api/user.ts";
+import userRouter from "./api/users.ts";
 import JWTProtected from "./middleware/JWTProtected.ts";
 
 const formatErrors = (error: z.ZodError): string[] => {
