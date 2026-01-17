@@ -2,6 +2,8 @@ import express from 'express';
 import z from 'zod';
 import { shipmentSchema } from "./schema";
 import authRouter from "./api/auth.ts";
+import userRouter from "./api/user.ts";
+import JWTProtected from "./middleware/JWTProtected.ts";
 
 const formatErrors = (error: z.ZodError): string[] => {
     return error.issues.map((issue) => {
@@ -19,6 +21,7 @@ app.get('/', (req, res) => {
 });
 
 app.use("/api", authRouter);
+app.use("/api/user", JWTProtected, userRouter);
 
 app.post('/api/shipments', (req, res) => {
    const result = shipmentSchema.safeParse(req.body);
