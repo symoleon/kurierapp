@@ -1,4 +1,5 @@
 import { z } from "zod";
+import type { Request } from "express";
 import {
     addressSchema,
     shipmentSchema,
@@ -12,3 +13,7 @@ export type User = z.infer<typeof userSchema>;
 export type UserWithId = z.infer<typeof userWithIdSchema>;
 
 export type Size = "S" | "M" | "L" | "XL";
+
+export interface AuthRequest extends Request {
+    userId: string;
+}
