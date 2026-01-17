@@ -1,7 +1,7 @@
 import { sql } from "bun";
-import type { DbUser, PartialUser, User, UserWithId } from "../types.ts";
+import type { DbPartialUser, PartialUser, User, UserWithId } from "../types.ts";
 
-function userToDbObject(user: PartialUser | User | UserWithId): DbUser {
+function userToDbObject(user: PartialUser | User | UserWithId): DbPartialUser {
     return {
         id: "id" in user ? user.id : undefined,
         email: user.email,

@@ -17,16 +17,33 @@ export type UserWithId = z.infer<typeof userWithIdSchema>;
 export type PartialUser = z.infer<typeof partialUserSchema>;
 
 export type DbUser = {
-    id?: string;
-    email?: string;
-    phone?: string;
-    password?: string;
-    city?: string;
-    postalCode?: string;
+    id: string;
+    email: string;
+    phone: string;
+    password: string;
+    city: string;
+    postalCode: string;
     street?: string;
-    building_no?: string;
+    building_no: string;
     apartment_no?: string;
 };
+
+export type DbPartialUser = Partial<DbUser>;
+
+export type DbShipment = {
+    id: string;
+    sender_id: string;
+    recipient_id?: string;
+    recipient_phone: string;
+    size: Size;
+    city: string;
+    postal_code: string;
+    street?: string;
+    building_no: string;
+    apartment_no?: string;
+};
+
+export type DbPartialShipment = Partial<DbShipment>;
 
 export type Size = "S" | "M" | "L" | "XL";
 
