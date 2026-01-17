@@ -5,7 +5,7 @@ export async function getUserById(id: string): Promise<UserWithId | null> {
     const [ user ] = await sql`SELECT *
                              FROM users
                              WHERE id = ${id}`;
-    if (user) return null;
+    if (!user) return null;
     return {
         id: user.id,
         email: user.email,
@@ -22,7 +22,7 @@ export async function getUserById(id: string): Promise<UserWithId | null> {
 
 export async function getUserByPhone(phon: string): Promise<UserWithId | null> {
     const [ user ] = await sql`SELECT * FROM users WHERE phone = ${phon}`;
-    if (user) return null;
+    if (!user) return null;
     return {
         id: user.id,
         email: user.email,
