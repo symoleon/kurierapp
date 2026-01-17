@@ -16,7 +16,7 @@ export const shipmentSchema = z.object({
     recipientAddress: addressSchema,
     recipientPhone: z.string(),
     recipientId: z.uuid().optional(),
-    size: z.enum(["S", "M", "L", "XL"]),
+    size: z.enum([ "S", "M", "L", "XL" ]),
 });
 
 export const partialShipmentSchema = shipmentSchema.partial();
@@ -40,4 +40,4 @@ export const createUserSchema = userSchema.omit({
     id: true,
 }).extend({
     password: z.string(),
-})
+});

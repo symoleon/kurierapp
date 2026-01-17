@@ -45,7 +45,7 @@ components:
           type: string
         size:
           type: string
-          enum: [S, M, L, XL]
+          enum: [ S, M, L, XL ]
     User:
       type: object
       properties:
@@ -108,7 +108,7 @@ paths:
         - Shipment
       summary: Nadanie nowej paczki
       security:
-        - bearerAuth: []
+        - bearerAuth: [ ]
       requestBody:
         required: true
         content:
@@ -126,7 +126,7 @@ paths:
         - Shipment
       summary: Szczegóły konkretnej paczki
       security:
-        - bearerAuth: []
+        - bearerAuth: [ ]
       parameters:
         - name: id
           in: path
@@ -150,7 +150,7 @@ paths:
         - User
       summary: Szczegóły obecnie zalogowanego użytkownika
       security:
-        - bearerAuth: []
+        - bearerAuth: [ ]
       responses:
         '200':
           description: Dane użytkownika
@@ -165,7 +165,7 @@ paths:
         - User
       summary: Aktualizacja danych użytkownika
       security:
-        - bearerAuth: []
+        - bearerAuth: [ ]
       requestBody:
         required: true
         content:
@@ -188,7 +188,7 @@ paths:
         - User
       summary: Lista paczek użytkownika
       security:
-        - bearerAuth: []
+        - bearerAuth: [ ]
       parameters:
         - name: relation
           in: query
@@ -196,7 +196,7 @@ paths:
           required: false
           schema:
             type: string
-            enum: [sender, recipient]
+            enum: [ sender, recipient ]
             default: sender
       responses:
         '200':

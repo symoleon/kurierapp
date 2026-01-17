@@ -26,14 +26,14 @@ app.use("/api/user", JWTProtected, userRouter);
 app.use("/api/shipments", JWTProtected, shimpentRouter);
 
 app.post('/api/shipments', (req, res) => {
-   const result = shipmentSchema.safeParse(req.body);
-   if (!result.success) {
-       res.status(400).json(formatErrors(result.error));
-       return;
-   }
-   res.json(result.data);
+    const result = shipmentSchema.safeParse(req.body);
+    if (!result.success) {
+        res.status(400).json(formatErrors(result.error));
+        return;
+    }
+    res.json(result.data);
 });
 
 app.listen(port, () => {
-   console.log(`Server started on port ${port}`);
+    console.log(`Server started on port ${port}`);
 });

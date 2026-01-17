@@ -26,10 +26,10 @@ router.patch('/@current', async (req, res) => {
 });
 
 router.get('/@current/shipments', async (req, res) => {
-   const authReq = req as AuthRequest;
-   const relation = authReq.query.relation == "recipient" ? "RECIPIENT" : "SENDER";
-   const shipments = await getShipments(authReq.userId, relation);
-   return res.status(200).send(shipments);
+    const authReq = req as AuthRequest;
+    const relation = authReq.query.relation == "recipient" ? "RECIPIENT" : "SENDER";
+    const shipments = await getShipments(authReq.userId, relation);
+    return res.status(200).send(shipments);
 });
 
 export default router;

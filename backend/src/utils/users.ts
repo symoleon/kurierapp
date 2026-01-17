@@ -16,8 +16,8 @@ function userToDbObject(user: PartialUser | User | CreateUser): DbPartialUser {
 
 export async function getUserById(id: string): Promise<User | null> {
     const [ user ] = await sql`SELECT *
-                             FROM users
-                             WHERE id = ${id}`;
+                               FROM users
+                               WHERE id = ${id}`;
     if (!user) return null;
     return {
         id: user.id,
@@ -29,12 +29,14 @@ export async function getUserById(id: string): Promise<User | null> {
             postal_code: user.postal_code,
             building_no: user.building_no,
             apartment_no: user.apartment_no,
-        }
+        },
     };
 }
 
 export async function getUserByPhone(phone: string): Promise<User | null> {
-    const [ user ] = await sql`SELECT * FROM users WHERE phone = ${phone}`;
+    const [ user ] = await sql`SELECT *
+                               FROM users
+                               WHERE phone = ${phone}`;
     if (!user) return null;
     return {
         id: user.id,
@@ -46,26 +48,28 @@ export async function getUserByPhone(phone: string): Promise<User | null> {
             postal_code: user.postal_code,
             building_no: user.building_no,
             apartment_no: user.apartment_no,
-        }
+        },
     };
 }
 
 export async function addUser(user: CreateUser): Promise<User> {
     const hash = await Bun.password.hash(user.password);
     const [ newUser ] = await sql`INSERT INTO users(email, password, phone, city, postal_code, street, building_no,
-                                              apartment_no)
-                            VALUES (${user.email},
-                                    ${hash},
-                                    ${user.phone},
-                                    ${user.address.city},
-                                    ${user.address.postal_code},
-                                    ${user.address.street},
-                                    ${user.address.building_no},
-                                    ${user.address.apartment_no})`;
+                                                    apartment_no)
+                                  VALUES (${user.email},
+                                          ${hash},
+                                          ${user.phone},
+                                          ${user.address.city},
+                                          ${user.address.postal_code},
+                                          ${user.address.street},
+                                          ${user.address.building_no},
+                                          ${user.address.apartment_no})`;
     return newUser;
 }
 
 export async function updateUser(userId: string, partialUser: PartialUser) {
     const { id, ...user } = userToDbObject(partialUser);
-    await sql`UPDATE users SET ${sql(user)} WHERE id = ${userId}`;
+    await sql`UPDATE users
+              SET ${sql(user)}
+              WHERE id = ${userId}`;
 }
