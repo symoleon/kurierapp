@@ -64,3 +64,7 @@ export async function addUser(user: User, password: string): Promise<UserWithId>
                                     ${user.address.apartment_no})`;
     return newUser;
 }
+
+export async function updateUser(userId: string, partialUser: PartialUser) {
+    await sql`UPDATE users SET ${sql(userToDbObject(partialUser))} WHERE id = ${userId}`;
+}
