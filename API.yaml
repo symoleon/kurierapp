@@ -91,6 +91,10 @@ paths:
                   type: string
                 password:
                   type: string
+              example:
+                email: example@example.com
+                password: TrudneHaslo
+
       responses:
         '200':
           description: Pomyślne logowanie
