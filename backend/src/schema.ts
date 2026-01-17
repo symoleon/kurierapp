@@ -21,3 +21,7 @@ export const userSchema = z.object({
     phone: z.string(),
     address: addressSchema
 })
+
+export const userWithIdSchema = userSchema.extend({
+    id: z.string(),
+})
