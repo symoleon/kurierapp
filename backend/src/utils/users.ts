@@ -66,5 +66,6 @@ export async function addUser(user: User, password: string): Promise<UserWithId>
 }
 
 export async function updateUser(userId: string, partialUser: PartialUser) {
-    await sql`UPDATE users SET ${sql(userToDbObject(partialUser))} WHERE id = ${userId}`;
+    const { id, ...user } = userToDbObject(partialUser);
+    await sql`UPDATE users SET ${sql(user)} WHERE id = ${userId}`;
 }
