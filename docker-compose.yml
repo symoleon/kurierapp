@@ -10,3 +10,4 @@ services:
       POSTGRES_DB: shipment_db
     volumes:
       - "./db_init.sql:/docker-entrypoint-initdb.d/init.sql"
+      - "./test_values.sql:/docker-entrypoint-initdb.d/test_values.sql"
