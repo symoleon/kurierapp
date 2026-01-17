@@ -19,20 +19,26 @@ function mapToShipment(dbShipment: DbShipment): Shipment {
     };
 }
 
-export async function getShipments(id: string, type: "SENDER" | "RECIPIENT"): Promise<Array<Shipment>> {
+export async function getShipments(userId: string, type: "SENDER" | "RECIPIENT"): Promise<Array<Shipment>> {
     if (type === "SENDER") {
         const result = await sql`SELECT *
                    FROM shipments
-                   WHERE sender_id = ${id}`;
+                   WHERE sender_id = ${userId}`;
         return result.map(mapToShipment);
     }
     if (type === "RECIPIENT") {
         const result = await sql`SELECT *
                    FROM shipments
-                   WHERE recipient_id = ${id}`;
+                   WHERE recipient_id = ${userId}`;
         return result.map(mapToShipment);
     }
     return [];
+}
+
+export async function getShipment(id: string): Promise<Shipment | null> {
+    const result = await sql`SELECT * FROM shipments WHERE id = ${id}`;
+    if (result.length != 1) return null;
+    return mapToShipment(result[0]);
 }
 
 export async function addShipment(userId: string, size: Size, recipientAddress: Address, recipientPhone: string) {
