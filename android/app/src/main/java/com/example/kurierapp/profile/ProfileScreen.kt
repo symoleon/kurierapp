@@ -55,6 +55,18 @@ fun ProfileScreen(
             imeAction = ImeAction.Next,
         )
         CustomTextField(
+            value = formData.email,
+            label = "Email",
+            onValueChange = {viewModel.onFieldChange(formData.copy(email = it))},
+            imeAction = ImeAction.Next,
+        )
+        CustomTextField(
+            value = formData.phone,
+            label = "Telefon",
+            onValueChange = {viewModel.onFieldChange(formData.copy(phone = it))},
+            imeAction = ImeAction.Next,
+        )
+        CustomTextField(
             value = formData.address.city,
             label = "Miasto",
             onValueChange = { viewModel.onFieldChange(formData.copy(address = formData.address.copy(city = it)))},
