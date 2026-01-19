@@ -13,6 +13,7 @@ function mapToShipment(dbShipment: DbShipment): Shipment {
         id: dbShipment.id,
         senderId: dbShipment.sender_id,
         size: dbShipment.size,
+        name: dbShipment.name,
         recipientPhone: dbShipment.recipient_phone,
         recipientId: dbShipment.recipient_id,
         recipientAddress: {

@@ -21,6 +21,7 @@ export async function getUserById(id: string): Promise<User | null> {
     if (!user) return null;
     return {
         id: user.id,
+        name: user.name,
         email: user.email,
         phone: user.phone,
         address: {
@@ -40,6 +41,7 @@ export async function getUserByPhone(phone: string): Promise<User | null> {
     if (!user) return null;
     return {
         id: user.id,
+        name: user.name,
         email: user.email,
         phone: user.phone,
         address: {
@@ -54,9 +56,10 @@ export async function getUserByPhone(phone: string): Promise<User | null> {
 
 export async function addUser(user: CreateUser): Promise<User> {
     const hash = await Bun.password.hash(user.password);
-    const [ newUser ] = await sql`INSERT INTO users(email, password, phone, city, postal_code, street, building_no,
+    const [ newUser ] = await sql`INSERT INTO users(name, email, password, phone, city, postal_code, street, building_no,
                                                     apartment_no)
-                                  VALUES (${user.email},
+                                  VALUES (${user.name}
+                                          ${user.email},
                                           ${hash},
                                           ${user.phone},
                                           ${user.address.city},

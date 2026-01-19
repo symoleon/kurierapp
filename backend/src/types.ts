@@ -22,6 +22,7 @@ export type PartialUser = z.infer<typeof partialUserSchema>;
 
 export type DbUser = {
     id: string;
+    name: string;
     email: string;
     phone: string;
     password: string;
@@ -40,6 +41,7 @@ export type DbShipment = {
     recipient_id?: string;
     recipient_phone: string;
     size: Size;
+    name: string;
     city: string;
     postal_code: string;
     street?: string;
