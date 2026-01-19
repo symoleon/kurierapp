@@ -27,7 +27,7 @@ export type DbUser = {
     phone: string;
     password: string;
     city: string;
-    postalCode: string;
+    postal_code: string;
     street?: string;
     building_no: string;
     apartment_no?: string;

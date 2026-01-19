@@ -7,7 +7,7 @@ function userToDbObject(user: PartialUser | User | CreateUser): DbPartialUser {
         email: user.email,
         phone: user.phone,
         city: user.address?.city,
-        postalCode: user.address?.postal_code,
+        postal_code: user.address?.postal_code,
         street: user.address?.street,
         building_no: user.address?.building_no,
         apartment_no: user.address?.apartment_no,
