@@ -47,11 +47,13 @@ export type DbShipment = {
     street?: string;
     building_no: string;
     apartment_no?: string;
+    state: shipmentState;
 };
 
 export type DbPartialShipment = Partial<DbShipment>;
 
 export type Size = "S" | "M" | "L" | "XL";
+export type shipmentState = "created" | "paid" | "sent" | "delivered";
 
 export interface AuthRequest extends Request {
     userId: string;

@@ -18,6 +18,7 @@ export const shipmentSchema = z.object({
     recipientId: z.uuid().optional(),
     size: z.enum([ "S", "M", "L", "XL" ]),
     name: z.string(),
+    state: z.enum([ "created", "paid", "sent", "delivered"]),
 });
 
 export const partialShipmentSchema = shipmentSchema.partial();
@@ -26,6 +27,7 @@ export const createShipmentSchema = shipmentSchema.omit({
     id: true,
     senderId: true,
     recipientId: true,
+    state: true,
 });
 
 export const userSchema = z.object({

@@ -38,6 +38,7 @@ import com.example.kurierapp.profile.ProfileScreen
 import com.example.kurierapp.shipments.ShipmentsScreen
 import com.example.kurierapp.ui.theme.KurierAppTheme
 import androidx.compose.runtime.collectAsState
+import com.example.kurierapp.send.SendScreen
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -94,7 +95,9 @@ fun KurierAppApp(viewModel: MainViewModel = viewModel()) {
                 AppDestinations.SHIPMENTS -> ShipmentsScreen(
                     modifier = Modifier.padding(innerPadding)
                 )
-                AppDestinations.SEND -> {}
+                AppDestinations.SEND -> SendScreen(
+                    modifier = Modifier.padding(innerPadding)
+                )
                 AppDestinations.PROFILE -> ProfileScreen(
                     logout = { viewModel.logout() },
                     modifier = Modifier.padding(innerPadding)

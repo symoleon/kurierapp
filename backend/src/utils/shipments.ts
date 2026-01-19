@@ -23,6 +23,7 @@ function mapToShipment(dbShipment: DbShipment): Shipment {
             building_no: dbShipment.building_no,
             apartment_no: dbShipment.apartment_no,
         },
+        state: dbShipment.state,
     };
 }
 
@@ -31,6 +32,7 @@ function shipmentToDbObject(shipment: Shipment | PartialShipment | CreateShipmen
         id: "id" in shipment ? shipment.id : undefined,
         sender_id: "senderId" in shipment ? shipment.senderId : undefined,
         size: shipment.size,
+        name: shipment.name,
         recipient_id: "recipientId" in shipment ? shipment.recipientId : undefined,
         recipient_phone: shipment.recipientPhone,
         city: shipment.recipientAddress?.city,
@@ -38,6 +40,7 @@ function shipmentToDbObject(shipment: Shipment | PartialShipment | CreateShipmen
         street: shipment.recipientAddress?.street,
         building_no: shipment.recipientAddress?.building_no,
         apartment_no: shipment.recipientAddress?.apartment_no,
+        state: "state" in shipment ? shipment.state : undefined,
     };
 }
 
@@ -72,7 +75,7 @@ export async function addShipment(userId: string, shipment: CreateShipment): Pro
         recipientId: recipient?.id,
         senderId: userId,
     } satisfies PartialShipment;
-    const { id, ...dbShipment } = shipmentToDbObject(newShipment);
+    const { id, state, ...dbShipment } = shipmentToDbObject(newShipment);
     const [ addedShipment ] = await sql`INSERT INTO shipments ${sql(dbShipment)} RETURNING *`;
     return mapToShipment(addedShipment);
 }

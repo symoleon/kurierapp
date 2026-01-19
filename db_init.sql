@@ -1,4 +1,5 @@
 CREATE TYPE shipment_size AS ENUM ('S', 'M', 'L', 'XL');
+CREATE TYPE shipment_state AS ENUM ('created', 'paid', 'sent', 'delivered');
 
 CREATE TABLE users
 (
@@ -16,15 +17,16 @@ CREATE TABLE users
 
 CREATE TABLE shipments
 (
-    id              uuid PRIMARY KEY DEFAULT gen_random_uuid(),
-    sender_id       uuid          NOT NULL REFERENCES users (id),
+    id              uuid PRIMARY KEY        DEFAULT gen_random_uuid(),
+    sender_id       uuid           NOT NULL REFERENCES users (id),
     recipient_id    uuid REFERENCES users (id),
-    recipient_phone VARCHAR       NOT NULL,
-    size            shipment_size NOT NULL,
-    name            VARCHAR       NOT NULL,
-    city            VARCHAR       NOT NULL,
-    postal_code     VARCHAR       NOT NULL,
+    recipient_phone VARCHAR        NOT NULL,
+    size            shipment_size  NOT NULL,
+    name            VARCHAR        NOT NULL,
+    city            VARCHAR        NOT NULL,
+    postal_code     VARCHAR        NOT NULL,
     street          VARCHAR,
-    building_no     VARCHAR       NOT NULL,
-    apartment_no    VARCHAR
+    building_no     VARCHAR        NOT NULL,
+    apartment_no    VARCHAR,
+    state           shipment_state NOT NULL DEFAULT 'created'
 );

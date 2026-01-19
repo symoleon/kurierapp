@@ -46,12 +46,16 @@ components:
         size:
           type: string
           enum: [ S, M, L, XL ]
+        name:
+          type: string
     User:
       type: object
       properties:
         id:
           type: string
           format: uuid
+        name:
+          type: string
         email:
           type: string
         phone:
@@ -61,6 +65,8 @@ components:
     PartialUser:
       type: object
       properties:
+        name:
+          type: string
         email:
           type: string
         phone:
