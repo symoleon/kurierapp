@@ -23,6 +23,7 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.adaptive.navigationsuite.NavigationSuiteScaffold
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
@@ -38,14 +39,22 @@ import com.example.kurierapp.profile.ProfileScreen
 import com.example.kurierapp.shipments.ShipmentsScreen
 import com.example.kurierapp.ui.theme.KurierAppTheme
 import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.remember
+import androidx.compose.ui.platform.LocalContext
 import com.example.kurierapp.send.SendScreen
+import com.stripe.android.PaymentConfiguration
+import com.stripe.android.paymentsheet.PaymentSheet
+import com.stripe.android.paymentsheet.PaymentSheetResult
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         TokenManager.init(this)
-        
+        PaymentConfiguration.init(
+            applicationContext,
+            "pk_test_51Skr2qAK0IlO7ATnsMts9u6t0uMlsAbtlAvmErtsP4sTOS9dvtEPjDqS00tRyB14YYs7Kw09J6olHIxtb5m2H6q600vp4WbOpM"
+        )
         enableEdgeToEdge()
         setContent {
             KurierAppTheme {
@@ -160,18 +169,4 @@ fun LoginScreen(
     }
 }
 
-@Composable
-fun Greeting(name: String, modifier: Modifier = Modifier) {
-    Text(
-        text = "Hello $name!",
-        modifier = modifier
-    )
-}
 
-@Preview(showBackground = true)
-@Composable
-fun GreetingPreview() {
-    KurierAppTheme {
-        Greeting("Android")
-    }
-}

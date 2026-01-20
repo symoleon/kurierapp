@@ -1,5 +1,6 @@
 package com.example.kurierapp.send
 
+import android.widget.Toast
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -17,16 +18,25 @@ import androidx.compose.material3.SegmentedButtonDefaults
 import androidx.compose.material3.SingleChoiceSegmentedButtonRow
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
-import com.example.kurierapp.profile.CustomTextField
+import com.example.kurierapp.NetworkClient
 import com.example.kurierapp.shipments.Size
+import com.stripe.android.PaymentConfiguration
+import com.stripe.android.paymentsheet.PaymentSheet
+import com.stripe.android.paymentsheet.PaymentSheetResult
+import com.stripe.android.paymentsheet.rememberPaymentSheet
 
 @Composable
 @Preview(showBackground = true)
@@ -36,6 +46,23 @@ fun SendScreen(
 ) {
     val state by viewModel.state.collectAsState()
     val formData = state.formData
+    val context = LocalContext.current
+    var paymentIntentClientSecret by remember { mutableStateOf<String?>(null) }
+    val paymentLaunchData by viewModel.paymentLaunchData.collectAsState()
+    val paymentSheet = rememberPaymentSheet(viewModel::onPaymentResult)
+
+    LaunchedEffect(paymentLaunchData) {
+        paymentLaunchData?.let { data ->
+            PaymentConfiguration.init(context, "pk_test_51Skr2qAK0IlO7ATnsMts9u6t0uMlsAbtlAvmErtsP4sTOS9dvtEPjDqS00tRyB14YYs7Kw09J6olHIxtb5m2H6q600vp4WbOpM")
+            paymentSheet.presentWithPaymentIntent(
+                paymentIntentClientSecret = data.paymentIntent,
+                configuration = PaymentSheet.Configuration(
+                    merchantDisplayName = "Kurier App",
+                )
+            )
+        }
+    }
+
 
     val scrollState = rememberScrollState()
     val sizeOptions = listOf("S", "M", "L", "XL")
@@ -110,7 +137,9 @@ fun SendScreen(
             )
         }
         Button(
-            onClick = { viewModel.submitForm() },
+            onClick = {
+                viewModel.checkout()
+                      },
             modifier = Modifier.fillMaxWidth().padding(top = 16.dp),
         ) {
             Text("Nadaj paczkę")

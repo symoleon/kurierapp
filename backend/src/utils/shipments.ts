@@ -75,7 +75,8 @@ export async function addShipment(userId: string, shipment: CreateShipment): Pro
         recipientId: recipient?.id,
         senderId: userId,
     } satisfies PartialShipment;
-    const { id, state, ...dbShipment } = shipmentToDbObject(newShipment);
+    const { id, ...dbShipment } = shipmentToDbObject(newShipment);
+    dbShipment.state = "paid";
     const [ addedShipment ] = await sql`INSERT INTO shipments ${sql(dbShipment)} RETURNING *`;
     return mapToShipment(addedShipment);
 }

@@ -4,6 +4,7 @@ import { shipmentSchema } from "./schema";
 import authRouter from "./api/auth.ts";
 import userRouter from "./api/users.ts";
 import shimpentRouter from "./api/shipments.ts";
+import paymentRouter from "./api/payment.ts";
 import JWTProtected from "./middleware/JWTProtected.ts";
 
 const formatErrors = (error: z.ZodError): string[] => {
@@ -22,6 +23,7 @@ app.get('/', (req, res) => {
 });
 
 app.use("/api", authRouter);
+app.use("/api", paymentRouter);
 app.use("/api/user", JWTProtected, userRouter);
 app.use("/api/shipments", JWTProtected, shimpentRouter);
 

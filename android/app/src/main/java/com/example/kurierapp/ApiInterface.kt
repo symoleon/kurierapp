@@ -29,4 +29,7 @@ interface ApiInterface {
     suspend fun getUserShipments(
         @Query("relation") relation: String = "recipient",
     ): List<ShipmentData>
+
+    @POST("payment")
+    suspend fun getPaymentDetails() : PaymentData
 }

@@ -68,6 +68,8 @@ dependencies {
     implementation(libs.converter.gson)
     implementation(libs.androidx.material3)
     implementation(libs.okhttp.logging.interceptor)
+    implementation(libs.stripe.android)
+    implementation(libs.financial.connections)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
